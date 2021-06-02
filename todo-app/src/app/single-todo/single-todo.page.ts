@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-single-todo',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-todo.page.scss'],
 })
 export class SingleTodoPage implements OnInit {
-
-  constructor() { }
+  public navParams = new NavParams();
+  value: any;
+  constructor(private navCtrl: NavController,) {
+      this.value = this.navParams.get('title');
+    }
 
   ngOnInit() {
+    console.log(this.value);
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
 }
