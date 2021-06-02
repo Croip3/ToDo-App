@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list-card',
@@ -14,8 +15,13 @@ export class TodoListCardComponent implements OnInit {
   @Input() public mainList: boolean;
   @Input() public color: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
+
+  test(){
+    console.log('test');
+    this.router.navigate(['single-todo']);
+  }
 
 }

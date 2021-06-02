@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'add-todo-list',
     loadChildren: () => import('./add-todo-list/add-todo-list.module').then( m => m.AddTodoListPageModule)
+  },  {
+    path: 'single-todo',
+    loadChildren: () => import('./single-todo/single-todo.module').then( m => m.SingleTodoPageModule)
   }
+
 ];
 @NgModule({
   imports: [

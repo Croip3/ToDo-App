@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AddTodoListPage} from '../add-todo-list/add-todo-list.page';
 import {ModalController} from '@ionic/angular';
+import { SingleTodoPage } from '../single-todo/single-todo.page';
 
 export interface TodoList {
   id: number;
@@ -17,7 +18,6 @@ export interface TodoList {
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
   private static TODO_LISTS: TodoList[] = [
     {
       id: 1,
@@ -70,7 +70,7 @@ export class Tab1Page {
   public otherLists: TodoList[];
 
   constructor(
-    private modalController: ModalController
+    private modalController: ModalController,
   ) {
     this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
     this.otherLists = Tab1Page.TODO_LISTS.filter(({mainList}) => !mainList);
