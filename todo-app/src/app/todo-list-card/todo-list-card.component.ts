@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-todo-list-card',
@@ -20,8 +21,16 @@ export class TodoListCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  test(title){
-    this.router.navigate(['single-todo'], title);
+  test(){
+    const navigationExtras = {
+      queryParams: {
+        title: this.title,
+        progress: this.progress,
+        color: this.color
+      }
+    };
+
+    this.router.navigate(['single-todo'], navigationExtras);
   }
 
 }

@@ -1,12 +1,36 @@
 <ion-header>
   <ion-toolbar>
     <ion-row>
-      <ion-title>{{id}}</ion-title>
+      <ion-title>{{title}}</ion-title>
       <ion-button (click)='goBack()' > Fertig</ion-button>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-item>
+      <ion-label position="floating">Titel</ion-label>
+      <ion-input value={{title}}></ion-input>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-label position="floating">Farbe</ion-label>
+      <ion-input value={{color}}></ion-input>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-label position="floating">Datum</ion-label>
+      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="cet"></ion-datetime>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-progress-bar value="{{ progress }}"></ion-progress-bar>
+    </ion-item>
+
+    
 
 </ion-content>
