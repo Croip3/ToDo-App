@@ -19,8 +19,6 @@ export class TodoListCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  test(){
-    this.router.navigate(['single-todo']);
-  }
+  
 
 }
