@@ -1,0 +1,23 @@
+{"test":[{
+      "id": 1,
+      "title": "'My Stuff'",
+      "totalTasks": 10,
+     " resolvedTasks": 7,
+      "progress": 0.7,
+      "mainList": true
+    }, {
+      "id": 2,
+      "title": "Uni'",
+      "totalTasks": 10,
+      "resolvedTasks": 5,
+      "progress": 0.5,
+      "mainList": false
+    },  {
+      "id": 3,
+      "title": "Groceries",
+      "totalTasks": 10,
+      "resolvedTasks": 5,
+      "progress": 0.5,
+      "mainList": false
+    }
+    ]}

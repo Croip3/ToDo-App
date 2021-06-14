@@ -12,17 +12,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid>
+  <ion-grid *ngIf="canRender">
     <ion-row>
-      <ion-col size="12">
+      <ion-col *ngFor="let item of mainList" size="12">
         <app-todo-list-card
-          [title]="mainList.title"
-          [resolvedTasks]="mainList.resolvedTasks"
-          [totalTasks]="mainList.totalTasks"
-          [progress]="mainList.progress"
-          [mainList]="mainList.mainList"
-          color="primary"
-        ></app-todo-list-card>
+          [title]="item.title"
+        >
+      </app-todo-list-card>
       </ion-col>
     </ion-row>
     <ion-row>

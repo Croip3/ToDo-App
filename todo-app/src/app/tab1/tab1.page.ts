@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {AddTodoListPage} from '../add-todo-list/add-todo-list.page';
 import {ModalController} from '@ionic/angular';
 import { SingleTodoPage } from '../single-todo/single-todo.page';
+import { HttpClient } from '@angular/common/http';
 
 export interface TodoList {
   id: number;
@@ -66,14 +67,37 @@ export class Tab1Page {
 
   @Input() public todoLists: TodoList[];
 
-  public mainList: TodoList;
+  //public mainList: TodoList;
+  public mainList: any;
   public otherLists: TodoList[];
+  todoList: any[];
+
+  private canRender = false;
 
   constructor(
     private modalController: ModalController,
+    private http: HttpClient
   ) {
-    this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
-    this.otherLists = Tab1Page.TODO_LISTS.filter(({mainList}) => !mainList);
+    //this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
+    //this.otherLists = Tab1Page.TODO_LISTS.filter(({mainList}) => !mainList);
+    this.getData();
+  }
+
+ getData(){
+    this.http.get('../../assets/data/todo.json').subscribe(
+        (res)=>{
+            console.log(res['allTodos']);
+            this.mainList = res['allTodos'];
+            //this.mainList = Tab1Page.res.find(({mainList}) => mainList);
+
+            this.canRender =  true;
+
+            //[resolvedTasks]="mainList.resolvedTasks"
+          //[totalTasks]="mainList.totalTasks"
+          //[progress]="mainList.progress"
+          //[mainList]="mainList.mainList"
+          //color="primary"
+        });
   }
 
   async presentModal(): Promise<void> {

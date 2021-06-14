@@ -21,6 +21,9 @@ export class TodoListCardComponent implements OnInit {
 
   ngOnInit() {}
 
+
+  
+
   test(){
     const navigationExtras = {
       queryParams: {
