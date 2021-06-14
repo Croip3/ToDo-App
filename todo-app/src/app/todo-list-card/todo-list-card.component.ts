@@ -15,6 +15,9 @@ export class TodoListCardComponent implements OnInit {
   @Input() public mainList: boolean;
   @Input() public color: string;
 
+  @Input() public description: string;
+  @Input() public id: number;
+
   constructor(private router: Router) { }
 
   ngOnInit() {}

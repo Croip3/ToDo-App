@@ -69,7 +69,7 @@ export class Tab1Page {
 
   //public mainList: TodoList;
   public mainList: any;
-  public otherLists: TodoList[];
+  public otherLists: any;
   todoList: any[];
 
   private canRender = false;
@@ -86,8 +86,10 @@ export class Tab1Page {
  getData(){
     this.http.get('../../assets/data/todo.json').subscribe(
         (res)=>{
-            console.log(res['allTodos']);
+            console.log(res['allTodos'][0]['description']);
             this.mainList = res['allTodos'];
+            this.otherLists = res['allTodos'][0]['sub_tasks'];
+            console.log(this.otherLists);
             //this.mainList = Tab1Page.res.find(({mainList}) => mainList);
 
             this.canRender =  true;

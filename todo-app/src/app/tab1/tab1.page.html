@@ -17,17 +17,24 @@
       <ion-col *ngFor="let item of mainList" size="12">
         <app-todo-list-card
           [title]="item.title"
+          [description]="item.description"
         >
       </app-todo-list-card>
+
+        <ion-col *ngFor="let list of item[sub_tasks]" size="11">
+          <app-todo-list-card [title]="list.title" [description]="list.description"></app-todo-list-card>
+        </ion-col>
+
       </ion-col>
+
+      
+
     </ion-row>
     <ion-row>
       <ion-col *ngFor="let list of otherLists" size="11">
         <app-todo-list-card
           [title]="list.title"
-          [resolvedTasks]="list.resolvedTasks"
-          [totalTasks]="list.totalTasks"
-          [progress]="list.progress"
+          [description]="list.description"
         ></app-todo-list-card>
       </ion-col>
     </ion-row>
