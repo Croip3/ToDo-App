@@ -80,30 +80,23 @@ export class Tab1Page {
   ) {
     //this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
     //this.otherLists = Tab1Page.TODO_LISTS.filter(({mainList}) => !mainList);
-
-    //this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
-
     this.getData();
-    console.log("hi");
   }
 
-  async test(){
-    await this.getData();
-  }
-
-  async getData(){
+ getData(){
     this.http.get('../../assets/data/todo.json').subscribe(
         (res)=>{
             console.log(res['allTodos']);
-            console.log(res);
             this.mainList = res['allTodos'];
-            //this.mainList = this.todoList;
-            console.log('TESA:' + this.todoList);
-
             //this.mainList = Tab1Page.res.find(({mainList}) => mainList);
-            console.log(this.mainList);
 
             this.canRender =  true;
+
+            //[resolvedTasks]="mainList.resolvedTasks"
+          //[totalTasks]="mainList.totalTasks"
+          //[progress]="mainList.progress"
+          //[mainList]="mainList.mainList"
+          //color="primary"
         });
   }
 
