@@ -17,11 +17,16 @@ export class TodoListCardComponent implements OnInit {
 
   @Input() public description: string;
   @Input() public id: number;
+  @Input() public date: string;
+  @Input() public startTime: string;
+  @Input() public endTime: string;
+
 
   constructor(private router: Router) { }
 
   ngOnInit() {}
 
+  //navigation to detail page
   test(){
     const navigationExtras = {
       queryParams: {

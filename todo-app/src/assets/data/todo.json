@@ -1,8 +1,41 @@
  {
   "allTodos": [
+    { 
+      "id": 1111,
+      "title": "Todo 1",
+      "description": "beschreibung meiner Aufgabe",
+      "date": "2021-12-01",
+      "start_time": "2021-05-17T15:00:00+01:00",
+      "end_time": "2021-05-18T13:00:00+01:00",
+      "location": "Leipzig",
+      "priority": false,
+      "sub_tasks": [
+        {
+          "task": "meine Unteraufgabe 1",
+          "description": "beschreibung meiner Unteraufgabe",
+          "priority": false,
+          "finished": false
+        },
+        {
+          "task": "meine Unteraufgabe 2",
+          "description": "beschreibung meiner Unteraufgabe",
+          "priority": false,
+          "finished": false
+        }
+      ],
+      "user": [
+        "user1"
+      ],
+      "labels": [
+        "label 1",
+        "label 2",
+        "label 3"
+      ],
+      "finished": false
+    },
     {
       "id": 1111,
-      "title": "meine Aufgabe gg",
+      "title": "Todo2",
       "description": "beschreibung meiner Aufgabe",
       "date": "2021-12-01",
       "start_time": "2021-05-17T15:00:00+01:00",

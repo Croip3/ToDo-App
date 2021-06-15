@@ -13,31 +13,29 @@
   </ion-header>
 
   <ion-grid *ngIf="canRender">
-    <ion-row>
-      <ion-col *ngFor="let item of mainList" size="12">
+    <ion-row >
+      <ion-col *ngFor="let item of mainList" size="12" class="ion-margin-top">
         <app-todo-list-card
           [title]="item.title"
           [description]="item.description"
+          [date] = "item.date"
+          [startTime] = "item.start_time"
+          [endTime] = "item.end_time"
+
         >
       </app-todo-list-card>
 
-        <ion-col *ngFor="let list of item[sub_tasks]" size="11">
-          <app-todo-list-card [title]="list.title" [description]="list.description"></app-todo-list-card>
+      <ion-row>
+        <ion-col *ngFor="let list of item.sub_tasks" size="11" class="ion-margin-top">
+          <app-todo-list-card [title]="list.task">
+          </app-todo-list-card>
         </ion-col>
+      </ion-row>
 
       </ion-col>
 
-      
-
     </ion-row>
-    <ion-row>
-      <ion-col *ngFor="let list of otherLists" size="11">
-        <app-todo-list-card
-          [title]="list.title"
-          [description]="list.description"
-        ></app-todo-list-card>
-      </ion-col>
-    </ion-row>
+    
   </ion-grid>
 
   <ion-fab (click)="presentModal()" vertical="bottom" horizontal="center" slot="fixed">
