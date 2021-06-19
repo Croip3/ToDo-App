@@ -1,17 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {AddTodoListPage} from '../add-todo-list/add-todo-list.page';
 import {ModalController} from '@ionic/angular';
-import { SingleTodoPage } from '../single-todo/single-todo.page';
-import { HttpClient } from '@angular/common/http';
-
-export interface TodoList {
-  id: number;
-  title: string;
-  totalTasks: number;
-  resolvedTasks: number;
-  progress: number;
-  mainList: boolean;
-}
+import {HttpClient} from '@angular/common/http';
+import {TodoListsJson, TodoListWithTodos, TodosJson} from "../interface/Todo";
+import {combineLatest, Observable} from "rxjs";
+import {map, shareReplay} from "rxjs/operators";
 
 @Component({
   selector: 'app-tab1',
@@ -19,87 +12,77 @@ export interface TodoList {
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  private static TODO_LISTS: TodoList[] = [
-    {
-      id: 1,
-      title: 'My Stuff',
-      totalTasks: 10,
-      resolvedTasks: 7,
-      progress: 0.7,
-      mainList: true
-    }, {
-      id: 2,
-      title: 'Uni',
-      totalTasks: 10,
-      resolvedTasks: 5,
-      progress: 0.5,
-      mainList: false
-    }, {
-      id: 3,
-      title: 'Groceries',
-      totalTasks: 10,
-      resolvedTasks: 5,
-      progress: 0.5,
-      mainList: false
-    }, {
-      id: 3,
-      title: 'Groceries',
-      totalTasks: 10,
-      resolvedTasks: 5,
-      progress: 0.5,
-      mainList: false
-    }, {
-      id: 3,
-      title: 'Groceries',
-      totalTasks: 10,
-      resolvedTasks: 5,
-      progress: 0.5,
-      mainList: false
-    }, {
-      id: 3,
-      title: 'Groceries',
-      totalTasks: 10,
-      resolvedTasks: 5,
-      progress: 0.5,
-      mainList: false
-    },
-  ];
 
-  @Input() public todoLists: TodoList[];
+  public mainTodoList$: Observable<TodoListWithTodos>;
+  public otherTodoLists$: Observable<TodoListWithTodos[]>;
 
-  //public mainList: TodoList;
-  public mainList: any;
-  public otherLists: any;
-  todoList: any[];
-
-  private canRender = false;
+  private todoLists$: Observable<TodoListWithTodos[]>;
+  private todoListsData$: Observable<TodoListsJson>;
+  private todosData$: Observable<TodosJson>;
 
   constructor(
     private modalController: ModalController,
     private http: HttpClient
   ) {
-    //this.mainList = Tab1Page.TODO_LISTS.find(({mainList}) => mainList);
-    //this.otherLists = Tab1Page.TODO_LISTS.filter(({mainList}) => !mainList);
-    this.getData();
+
+    this.todoListsData$ = this.getTodoListsData()
+      .pipe(
+        shareReplay()
+      );
+
+    this.todosData$ = this.getTodosData()
+      .pipe(
+        shareReplay()
+      );
+
+    this.todoLists$ = this.getTodoListsWithTodos();
+    this.mainTodoList$ = this.getMainTodoList();
+    this.otherTodoLists$ = this.getOtherTodoLists();
   }
 
- getData(){
-    this.http.get('../../assets/data/todo.json').subscribe(
-        (res)=>{
-            console.log(res['allTodos'][0]['description']);
-            this.mainList = res['allTodos'];
-            this.otherLists = res['allTodos'][0]['sub_tasks'];
-            console.log(this.otherLists);
-            //this.mainList = Tab1Page.res.find(({mainList}) => mainList);
+  private getTodoListsData(): Observable<TodoListsJson> {
+    return this.http.get('../../assets/data/todo-list.json')
+      .pipe(
+        map(res => res as TodoListsJson)
+      );
+  }
 
-            this.canRender =  true;
+  private getTodosData(): Observable<TodosJson> {
+    return this.http.get('../../assets/data/todo.json')
+      .pipe(
+        map(res => res as TodosJson)
+      );
+  }
 
-            //[resolvedTasks]="mainList.resolvedTasks"
-          //[totalTasks]="mainList.totalTasks"
-          //[progress]="mainList.progress"
-          //[mainList]="mainList.mainList"
-          //color="primary"
-        });
+  private getMainTodoList(): Observable<TodoListWithTodos> {
+    return this.todoLists$
+      .pipe(
+        map(todoLists => todoLists.find(todoList => todoList.main)),
+      );
+  }
+
+  private getTodoListsWithTodos(): Observable<TodoListWithTodos[]> {
+    return combineLatest([
+        this.todoListsData$,
+        this.todosData$
+      ]
+    )
+      .pipe(
+        map(([todoListsJson, todosJson]) =>
+          todoListsJson.todoLists
+            .map(todoList => ({
+              ...todoList,
+              todos: todosJson.allTodos.filter(todo => todoList.todo_ids.includes(todo.id))
+            } as TodoListWithTodos))
+        )
+      );
+  }
+
+  private getOtherTodoLists(): Observable<TodoListWithTodos[]> {
+    return this.todoLists$
+      .pipe(
+        map(todoLists => todoLists.filter(todo => !todo.main))
+      );
   }
 
   async presentModal(): Promise<void> {
