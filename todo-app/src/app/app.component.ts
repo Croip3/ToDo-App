@@ -11,8 +11,5 @@ export class AppComponent {
   constructor(private todoListService: TodoListService) {
     this.todoListService.initTodoLists()
       .subscribe();
-
-    this.todoListService.addTodoList({id: 5, title: 'test', todo_ids: [1, 2, 3], main: false})
-      .subscribe()
   }
 }
