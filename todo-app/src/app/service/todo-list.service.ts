@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {combineLatest, Observable, ReplaySubject} from "rxjs";
 import {Todo, TodoList, TodoListsJson, TodoListWithTodos, TodosJson} from "../interface/Todo";
-import {first, map, tap} from "rxjs/operators";
+import {first, map, shareReplay, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -9,15 +9,31 @@ import {HttpClient} from "@angular/common/http";
 })
 export class TodoListService {
 
-  private todoLists$ = new ReplaySubject<TodoList[]>();
-  private todoListsWithTodos$ = new ReplaySubject<TodoListWithTodos[]>();
+  private todoListsWithTodos$: Observable<TodoListWithTodos[]>;
 
+  private todoLists$ = new ReplaySubject<TodoList[]>();
   //TODO: Move everything related to todos to todo service
   private todos$ = new ReplaySubject<Todo[]>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.todoListsWithTodos$ = combineLatest([
+      this.todoLists$,
+      this.todos$
+      ]
+    )
+      .pipe(
+        map(([todoLists, todos]) =>
+          todoLists
+            .map(todoList => ({
+              ...todoList,
+              todos: todos.filter(todo => todoList.todo_ids.includes(todo.id))
+            } as TodoListWithTodos))
+        ),
+        shareReplay()
+      )
+  }
 
-  public initTodoLists(): Observable<TodoListWithTodos[]> {
+  public initTodoLists(): Observable<TodoListsJson> {
     return combineLatest([
         this.getTodoListsData(),
         this.getTodosData()
@@ -28,14 +44,7 @@ export class TodoListService {
           this.updateTodos(todos.allTodos);
           this.updateTodoLists(todoLists.todoLists);
         }),
-        map(([todoListsJson, todosJson]) =>
-          todoListsJson.todoLists
-            .map(todoList => ({
-              ...todoList,
-              todos: todosJson.allTodos.filter(todo => todoList.todo_ids.includes(todo.id))
-            } as TodoListWithTodos))
-        ),
-        tap(todoListsWithTodos => this.updateTodoListsWithTodos(todoListsWithTodos))
+        map(([todoLists]) => todoLists)
       );
   }
 
@@ -81,10 +90,6 @@ export class TodoListService {
         first(),
         tap(todoLists => this.updateTodoLists(todoLists.concat(todoList))),
       );
-  }
-
-  private updateTodoListsWithTodos(todoListsWithTodos: TodoListWithTodos[]) {
-    this.todoListsWithTodos$.next(todoListsWithTodos)
   }
 
   private updateTodoLists(todoLists: TodoList[]) {
