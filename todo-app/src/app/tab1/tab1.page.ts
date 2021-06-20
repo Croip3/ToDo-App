@@ -12,16 +12,13 @@ import {TodoListService} from "../service/todo-list.service";
 })
 export class Tab1Page {
 
-  public mainTodoList$: Observable<TodoListWithTodos>;
-  public otherTodoLists$: Observable<TodoListWithTodos[]>;
+  public todoLists$: Observable<TodoListWithTodos[]>;
 
   constructor(
     private modalController: ModalController,
     private todoListService: TodoListService
   ) {
-
-    this.mainTodoList$ = this.todoListService.getMainTodoList();
-    this.otherTodoLists$ = this.todoListService.getOtherTodoLists();
+    this.todoLists$ = this.todoListService.todoListsWithTodos$;
   }
 
   async presentModal(): Promise<void> {

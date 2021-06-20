@@ -9,28 +9,39 @@ import {HttpClient} from "@angular/common/http";
 })
 export class TodoListService {
 
-  private todoListsWithTodos$: Observable<TodoListWithTodos[]>;
+  private todoListsWithTodosInternal$: Observable<TodoListWithTodos[]>;
 
-  private todoLists$ = new ReplaySubject<TodoList[]>();
+  private todoListsInternal$ = new ReplaySubject<TodoList[]>();
   //TODO: Move everything related to todos to todo service
   private todos$ = new ReplaySubject<Todo[]>();
 
   constructor(private http: HttpClient) {
-    this.todoListsWithTodos$ = combineLatest([
-      this.todoLists$,
-      this.todos$
-      ]
-    )
+    this.todoListsWithTodosInternal$ = this.getTodoListsWithTodos()
       .pipe(
-        map(([todoLists, todos]) =>
-          todoLists
-            .map(todoList => ({
-              ...todoList,
-              todos: todos.filter(todo => todoList.todo_ids.includes(todo.id))
-            } as TodoListWithTodos))
-        ),
         shareReplay()
+      );
+  }
+
+  public get todoListsWithTodos$(): Observable<TodoListWithTodos[]> {
+    return this.todoListsWithTodosInternal$
+      .pipe(
+        first()
       )
+  }
+
+  public get todoLists$(): Observable<TodoList[]> {
+    return this.todoListsInternal$
+      .pipe(
+        first()
+      );
+  }
+
+  public observeTodoListsWithTodos(): Observable<TodoListWithTodos[]> {
+    return this.todoListsWithTodosInternal$;
+  }
+
+  public observeTodoLists(): Observable<TodoList[]> {
+    return this.todoListsInternal$;
   }
 
   public initTodoLists(): Observable<TodoListsJson> {
@@ -48,56 +59,61 @@ export class TodoListService {
       );
   }
 
-  public getTodoLists(): Observable<TodoList[]> {
-    return this.todoLists$
-  }
-
-  public getTodoListsWithTodos(): Observable<TodoListWithTodos[]> {
-    return this.todoListsWithTodos$
-  }
-
   public getMainTodoList(): Observable<TodoListWithTodos> {
-    return this.getTodoListsWithTodos()
+    return this.todoListsWithTodosInternal$
       .pipe(
         map(todoLists => todoLists.find(todoList => todoList.main)),
       );
   }
 
   public getOtherTodoLists(): Observable<TodoListWithTodos[]> {
-    return this.getTodoListsWithTodos()
+    return this.todoListsWithTodosInternal$
       .pipe(
         map(todoLists => todoLists.filter(todo => !todo.main))
       );
   }
 
   public getTodoListById(id: number): Observable<TodoListWithTodos> {
-    return this.getTodoListsWithTodos()
+    return this.todoListsWithTodosInternal$
       .pipe(
         map(todoLists => todoLists.find(todo => todo.id))
       );
   }
 
   public getTodoListByTitle(title: string): Observable<TodoListWithTodos> {
-    return this.getTodoListsWithTodos()
+    return this.todoListsWithTodosInternal$
       .pipe(
         map(todoLists => todoLists.find(todo => todo.title))
       );
   }
 
-  public addTodoList(todoList: TodoList): Observable<TodoList[]> {
-    return this.getTodoLists()
-      .pipe(
-        first(),
-        tap(todoLists => this.updateTodoLists(todoLists.concat(todoList))),
-      );
+  public addTodoList(todoLists: TodoList[], todoList: TodoList): void {
+        this.updateTodoLists(todoLists.concat(todoList));
   }
 
-  private updateTodoLists(todoLists: TodoList[]) {
-    this.todoLists$.next(todoLists)
+  private updateTodoLists(todoLists: TodoList[]): void {
+    this.todoListsInternal$.next(todoLists)
   }
 
-  private updateTodos(todos: Todo[]) {
+  private updateTodos(todos: Todo[]): void {
     this.todos$.next(todos)
+  }
+
+  private getTodoListsWithTodos(): Observable<TodoListWithTodos[]> {
+    return  combineLatest([
+        this.todoListsInternal$,
+        this.todos$
+      ]
+    )
+      .pipe(
+        map(([todoLists, todos]) =>
+          todoLists
+            .map(todoList => ({
+              ...todoList,
+              todos: todos.filter(todo => todoList.todo_ids.includes(todo.id))
+            } as TodoListWithTodos))
+        )
+      )
   }
 
   private getTodoListsData(): Observable<TodoListsJson> {

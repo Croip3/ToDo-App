@@ -1,4 +1,8 @@
-<ion-card button="true" (click)="test()" mode="ios" [ngClass]="{'ion-no-margin ion-margin-horizontal float:left': !mainTask}">
+<ion-card (click)="test()"
+          button="true"
+          mode="ios"
+          class="ion-no-margin ion-margin-horizontal float:left"
+>
   <ion-card-header>
     <ion-item lines="none">
       <ion-card-title>{{ title }}</ion-card-title>
@@ -9,8 +13,9 @@
     <ion-progress-bar value="{{ progress }}"></ion-progress-bar>
     <ion-datetime *ngIf="date" value="{{ date }}"></ion-datetime>
     <ion-row *ngIf="startTime">
-      <ion-datetime *ngIf="startTime" display-format="h:mm A" picker-format="h:mm A" value="{{ startTime }}"></ion-datetime>
-      <ion-text> - </ion-text>
+      <ion-datetime *ngIf="startTime" display-format="h:mm A" picker-format="h:mm A"
+                    value="{{ startTime }}"></ion-datetime>
+      <ion-text> -</ion-text>
       <ion-datetime *ngIf="endTime" display-format="h:mm A" picker-format="h:mm A" value="{{ endTime }}"></ion-datetime>
     </ion-row>
   </ion-card-content>
