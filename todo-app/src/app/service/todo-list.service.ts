@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import {combineLatest, Observable, ReplaySubject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {combineLatest, from, iif, Observable, of, ReplaySubject} from "rxjs";
 import {Todo, TodoList, TodoListsJson, TodoListWithTodos, TodosJson} from "../interface/Todo";
-import {first, map, shareReplay, tap} from "rxjs/operators";
+import {distinctUntilChanged, first, map, mergeMap, shareReplay, tap, withLatestFrom} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
+import {Storage} from "@capacitor/core";
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class TodoListService {
     return this.todoListsInternal$;
   }
 
-  public initTodoLists(): Observable<TodoListsJson> {
+  public initTodoLists(): Observable<void> {
     return combineLatest([
         this.getTodoListsData(),
         this.getTodosData()
@@ -52,10 +53,10 @@ export class TodoListService {
     )
       .pipe(
         tap(([todoLists, todos]) => {
-          this.updateTodos(todos.allTodos);
-          this.updateTodoLists(todoLists.todoLists);
+          this.updateTodos(todos);
+          this.updateTodoLists(todoLists);
         }),
-        map(([todoLists]) => todoLists)
+        mergeMap(() => this.persistTodoLists())
       );
   }
 
@@ -87,8 +88,17 @@ export class TodoListService {
       );
   }
 
-  public addTodoList(todoLists: TodoList[], todoList: TodoList): void {
-        this.updateTodoLists(todoLists.concat(todoList));
+  public addTodoList(todoList: TodoList): Observable<TodoList[]> {
+    return of(todoList)
+      .pipe(
+        withLatestFrom(this.todoListsInternal$),
+        map(([todoList, todoLists]) => {
+          const newTodoLists = todoLists.concat(todoList);
+
+          this.updateTodoLists(newTodoLists);
+          return todoLists.concat(todoList)
+        })
+      );
   }
 
   private updateTodoLists(todoLists: TodoList[]): void {
@@ -100,7 +110,7 @@ export class TodoListService {
   }
 
   private getTodoListsWithTodos(): Observable<TodoListWithTodos[]> {
-    return  combineLatest([
+    return combineLatest([
         this.todoListsInternal$,
         this.todos$
       ]
@@ -116,17 +126,52 @@ export class TodoListService {
       );
   }
 
-  private getTodoListsData(): Observable<TodoListsJson> {
+  private fetchTodoListsData(): Observable<TodoList[]> {
     return this.http.get('../../assets/data/todo-list.json')
       .pipe(
         map(res => res as TodoListsJson),
+        map(todoListsJson => todoListsJson.todoLists),
       );
   }
 
-  private getTodosData(): Observable<TodosJson> {
+  private getTodoListsData(): Observable<TodoList[]> {
+    return this.readTodoListsFromStorage()
+      .pipe(
+        mergeMap(todoLists => iif(() => !!todoLists,
+          this.readTodoListsFromStorage(),
+          this.fetchTodoListsData()
+          )
+        )
+      )
+  }
+
+  private getTodosData(): Observable<Todo[]> {
     return this.http.get('../../assets/data/todo.json')
       .pipe(
-        map(res => res as TodosJson)
+        map(res => res as TodosJson),
+        map(todosJson => todosJson.allTodos),
+      );
+  }
+
+  private persistTodoLists(): Observable<void> {
+    return this.todoListsInternal$
+      .pipe(
+        distinctUntilChanged(),
+        mergeMap(todoLists => this.writeTodoListsToStorage(todoLists)),
+      );
+  }
+
+  private writeTodoListsToStorage(todoLists: TodoList[]): Observable<void> {
+    return from(Storage.set({
+      key: 'todo_lists',
+      value: JSON.stringify(todoLists)
+    }));
+  }
+
+  private readTodoListsFromStorage(): Observable<TodoList[]> {
+    return from(Storage.get({key: 'todo_lists'}))
+      .pipe(
+        map(data => JSON.parse(data.value) as TodoList[]),
       );
   }
 }

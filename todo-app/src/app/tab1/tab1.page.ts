@@ -18,7 +18,7 @@ export class Tab1Page {
     private modalController: ModalController,
     private todoListService: TodoListService
   ) {
-    this.todoLists$ = this.todoListService.todoListsWithTodos$;
+    this.todoLists$ = this.todoListService.observeTodoListsWithTodos();
   }
 
   async presentModal(): Promise<void> {
