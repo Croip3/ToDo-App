@@ -12,10 +12,11 @@
     <ion-grid class="ion-margin-top"
     >
       <ion-row class="ion-justify-content-center">
-        <ion-col size="11"
+        <ion-col *ngFor="let todo of todoList.todos"
+                 size="11"
                  class="ion-margin-top"
         >
-          <app-todo-card>
+          <app-todo-card [todo]="todo">
           </app-todo-card>
         </ion-col>
       </ion-row>

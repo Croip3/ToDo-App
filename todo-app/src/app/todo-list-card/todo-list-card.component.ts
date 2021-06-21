@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import {Todo, TodoListWithTodos} from "../interface/Todo";
+import {TodoListWithTodos} from "../interface/Todo";
 import {NavController} from "@ionic/angular";
 
 @Component({
@@ -13,6 +13,7 @@ export class TodoListCardComponent implements OnInit {
   @Input() public todoList: TodoListWithTodos;
 
   public description: string;
+  public showProgress: boolean;
   public progress: number;
 
   constructor(
@@ -21,8 +22,7 @@ export class TodoListCardComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.description = this.getDescription(this.todoList.todos);
-    this.progress = this.getProgress(this.todoList.todos);
+    this.initProgress();
   }
 
   //navigation to detail page
@@ -42,21 +42,14 @@ export class TodoListCardComponent implements OnInit {
     return this.navController.navigateForward(['todo-list', id]);
   }
 
-  private getDescription(todos: Todo[]): string {
+  private initProgress(): void {
+    const todos = this.todoList.todos;
+
     const finishedTodos = todos.filter(todo => todo.finished).length;
     const totalTodos = todos.length;
 
-    if (totalTodos === 0) {
-      return 'Tap to add new task';
-    }
-
-    return `${finishedTodos} / ${totalTodos}`;
-  }
-
-  private getProgress(todos: Todo[]): number {
-    const finishedTodos = todos.filter(todo => todo.finished).length;
-    const totalTodos = todos.length;
-
-    return finishedTodos / totalTodos;
+    this.description = totalTodos ? `${totalTodos} Items` : 'No items yet';
+    this.showProgress = !!totalTodos;
+    this.progress = finishedTodos / totalTodos;
   }
 }

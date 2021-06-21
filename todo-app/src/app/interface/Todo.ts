@@ -12,7 +12,7 @@ export interface Todo {
   "description": string;
   "date": string;
   "start_time": string;
-  "end_time": string;
+  "end_time": Date;
   "location": string;
   "priority": boolean;
   "sub_tasks": SubTask[];
