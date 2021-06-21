@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>todo-list</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ng-container *ngIf="(todoList$ | async) as todoList">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button [text]="buttonLabel"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ todoList.title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
+  <ion-content>
 
-</ion-content>
+  </ion-content>
+</ng-container>
+

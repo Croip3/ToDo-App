@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {Todo, TodoListWithTodos} from "../interface/Todo";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-todo-list-card',
@@ -14,7 +15,10 @@ export class TodoListCardComponent implements OnInit {
   public description: string;
   public progress: number;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private navController: NavController
+    ) { }
 
   ngOnInit() {
     this.description = this.getDescription(this.todoList.todos);
@@ -34,11 +38,13 @@ export class TodoListCardComponent implements OnInit {
     // this.router.navigate(['single-todo'], navigationExtras);
   }
 
+  public navigateToTodoList(id: number): Promise<boolean> {
+    return this.navController.navigateForward(['todo-list', id]);
+  }
+
   private getDescription(todos: Todo[]): string {
     const finishedTodos = todos.filter(todo => todo.finished).length;
     const totalTodos = todos.length;
-
-    console.log(typeof totalTodos)
 
     if (totalTodos === 0) {
       return 'Tap to add new task';

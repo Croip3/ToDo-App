@@ -11,8 +11,12 @@ const routes: Routes = [
     loadChildren: () => import('./add-todo-list/add-todo-list.module').then( m => m.AddTodoListPageModule)
   },
   {
-    path: 'single-todo',
+    path: 'single-todo/:list_id',
     loadChildren: () => import('./single-todo/single-todo.module').then( m => m.SingleTodoPageModule)
+  },
+  {
+    path: 'todo-list/:id',
+    loadChildren: () => import('./todo-list/todo-list.module').then( m => m.TodoListPageModule)
   }
 
 ];
