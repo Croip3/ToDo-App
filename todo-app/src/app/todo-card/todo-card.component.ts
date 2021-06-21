@@ -15,9 +15,7 @@ export class TodoCardComponent implements OnInit {
   public finishedSubTasks: number;
   public progress: number;
 
-  constructor(private navController: NavController) {
-
-  }
+  constructor(private navController: NavController) { }
 
   ngOnInit() {
     this.initProgress();
@@ -25,6 +23,10 @@ export class TodoCardComponent implements OnInit {
 
   public navigateToTodo(id: number): Promise<boolean> {
     return this.navController.navigateForward(['single-todo', id]);
+  }
+
+  public onCheckboxChange(checked: boolean): void {
+    console.log(checked);
   }
 
   private initProgress(): void {

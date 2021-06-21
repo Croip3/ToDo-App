@@ -6,6 +6,8 @@
   <ion-card-header>
     <ion-item lines="none">
       <ion-card-title>{{ todo.title}}</ion-card-title>
+      <ion-checkbox (ionChange)="onCheckboxChange($event.detail.checked)"
+                    slot="end"></ion-checkbox>
     </ion-item>
   </ion-card-header>
   <ion-card-content>
