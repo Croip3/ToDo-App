@@ -76,14 +76,14 @@ export class TodoListService {
   public getTodoListById(id: number): Observable<TodoListWithTodos> {
     return this.todoListsWithTodosInternal$
       .pipe(
-        map(todoLists => todoLists.find(todo => todo.id))
+        map(todoLists => todoLists.find(todo => todo.id === id))
       );
   }
 
   public getTodoListByTitle(title: string): Observable<TodoListWithTodos> {
     return this.todoListsWithTodosInternal$
       .pipe(
-        map(todoLists => todoLists.find(todo => todo.title))
+        map(todoLists => todoLists.find(todo => todo.title === title))
       );
   }
 
@@ -113,7 +113,7 @@ export class TodoListService {
               todos: todos.filter(todo => todoList.todo_ids.includes(todo.id))
             } as TodoListWithTodos))
         )
-      )
+      );
   }
 
   private getTodoListsData(): Observable<TodoListsJson> {
