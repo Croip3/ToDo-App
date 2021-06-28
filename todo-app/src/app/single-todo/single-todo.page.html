@@ -16,20 +16,34 @@
     <ion-item-divider></ion-item-divider>
 
     <ion-item>
-      <ion-label position="floating">Farbe</ion-label>
-      <ion-input value={{color}}></ion-input>
+      <ion-label position="floating">Beschreibung</ion-label>
+      <ion-input value={{description}}></ion-input>
     </ion-item>
     <ion-item-divider></ion-item-divider>
 
-    <ion-item>
+    <!--<ion-item>
       <ion-label position="floating">Datum</ion-label>
-      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="cet"></ion-datetime>
+      <ion-datetime value={{date}} display-timezone="cet"></ion-datetime>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>-->
+
+    <ion-item>
+      <ion-label position="floating">Start Zeit</ion-label>
+      <ion-datetime value={{startTime}} display-timezone="cet"></ion-datetime>
     </ion-item>
     <ion-item-divider></ion-item-divider>
 
     <ion-item>
-      <ion-progress-bar value="{{ progress }}"></ion-progress-bar>
+      <ion-label position="floating">End Zeitpunkt</ion-label>
+      <ion-datetime value={{endTime}} display-timezone="cet"></ion-datetime>
     </ion-item>
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-label position="floating">Ort</ion-label>
+      <ion-input value={{location}}></ion-input>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
 
     
 

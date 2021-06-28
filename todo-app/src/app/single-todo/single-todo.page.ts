@@ -13,6 +13,11 @@ export class SingleTodoPage implements OnInit {
   title: any;
   progress: any;
   color: any;
+  description: any;
+  date: any;
+  startTime: any;
+  endTime: any;
+  location: any;
 
   constructor(private navCtrl: NavController,private route: ActivatedRoute, private router: Router) {
       this.route.queryParams.subscribe(params => {
@@ -25,6 +30,22 @@ export class SingleTodoPage implements OnInit {
         if (params && params.color){
           this.color = params.color;
         }
+        if (params && params.description){
+          this.description = params.description;
+        }
+        if (params && params.date){
+          this.date = params.date;
+        }
+        if (params && params.startTime){
+          this.startTime = params.startTime;
+        }
+        if (params && params.endTime){
+          this.endTime = params.endTime;
+        }
+        if (params && params.location){
+          this.location = params.location;
+        }
+
       });
     }
 

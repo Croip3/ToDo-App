@@ -20,6 +20,8 @@ export class TodoListCardComponent implements OnInit {
   @Input() public date: string;
   @Input() public startTime: string;
   @Input() public endTime: string;
+  @Input() public location: string;
+
 
 
   constructor(private router: Router) { }
@@ -31,8 +33,12 @@ export class TodoListCardComponent implements OnInit {
     const navigationExtras = {
       queryParams: {
         title: this.title,
-        progress: this.progress,
-        color: this.color
+        color: this.color,
+        date: this.date,
+        description: this.description,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        location: this.location,
       }
     };
 
