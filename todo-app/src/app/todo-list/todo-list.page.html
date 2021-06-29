@@ -1,0 +1,26 @@
+<ng-container *ngIf="(todoList$ | async) as todoList">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button [text]="buttonLabel"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ todoList.title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-grid class="ion-margin-top"
+    >
+      <ion-row class="ion-justify-content-center">
+        <ion-col *ngFor="let todo of todoList.todos"
+                 size="11"
+                 class="ion-margin-top"
+        >
+          <app-todo-card [todo]="todo">
+          </app-todo-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ng-container>
+

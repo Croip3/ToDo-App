@@ -12,4 +12,15 @@
       <ion-title size="large" class="ion-text-center">Calendar</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="ion-padding">
+
+    <ion-calendar
+      (change)="onChange($event)"
+      [(ngModel)]="date"
+      [type]="type"
+      [format]="'YYYY-MM-DD'">
+    </ion-calendar>
+
+  </div>
 </ion-content>

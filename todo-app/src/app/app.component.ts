@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TodoListService} from "./service/todo-list.service";
 
 
 @Component({
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private todoListService: TodoListService) {
+    this.todoListService.initTodoLists()
+      .subscribe();
+  }
 }

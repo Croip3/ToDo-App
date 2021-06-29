@@ -1,6 +1,6 @@
  {
   "allTodos": [
-    { 
+    {
       "id": 1111,
       "title": "Todo 1",
       "description": "beschreibung meiner Aufgabe",
@@ -31,7 +31,7 @@
         "label 2",
         "label 3"
       ],
-      "finished": false
+      "finished": true
     },
     {
       "id": 1111,
@@ -67,4 +67,4 @@
       "finished": false
     }
   ]
-}
+ }
