@@ -1,11 +1,16 @@
-<ion-card button="true" (click)="test()" mode="ios" [ngClass]="{'ion-no-margin ion-margin-horizontal float:left': !mainTask}">
+<ion-card (click)="navigateToTodoList(todoList.id)"
+          button="true"
+          mode="ios"
+          class="ion-no-margin ion-margin-horizontal float:left"
+>
   <ion-card-header>
     <ion-item lines="none">
-      <ion-card-title>{{ title }}</ion-card-title>
+      <ion-card-title>{{ todoList.title }}</ion-card-title>
     </ion-item>
   </ion-card-header>
   <ion-card-content>
     <ion-text>{{ description }}</ion-text>
+
     <ion-progress-bar value="{{ progress }}"></ion-progress-bar>
     <ion-datetime *ngIf="date" value="{{ date }}"></ion-datetime>
     <ion-row *ngIf="startTime">
@@ -13,5 +18,11 @@
       <ion-text> - </ion-text>
       <ion-datetime *ngIf="endTime" display-format="h:mm A" picker-format="h:mm A" value="{{ endTime }}"></ion-datetime>
     </ion-row>
+
+    //neu?
+    <ion-progress-bar *ngIf="showProgress" value="{{ progress }}"
+                      class="ion-margin-top"
+    ></ion-progress-bar>
+
   </ion-card-content>
 </ion-card>

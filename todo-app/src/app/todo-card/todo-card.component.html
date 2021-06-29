@@ -1,0 +1,27 @@
+<ion-card (click)="navigateToTodo(todo.id)"
+          button="true"
+          mode="ios"
+          class="ion-no-margin ion-margin-horizontal float:left"
+>
+  <ion-card-header>
+    <ion-item lines="none">
+      <ion-card-title>{{ todo.title}}</ion-card-title>
+      <ion-checkbox (ionChange)="onCheckboxChange($event.detail.checked)"
+                    slot="end"></ion-checkbox>
+    </ion-item>
+  </ion-card-header>
+  <ion-card-content>
+
+    <ion-list>
+      <ion-item lines="none">
+        <ion-note>{{ todo.location }}</ion-note>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-note>{{ todo.end_time | date }}</ion-note>
+      </ion-item>
+    </ion-list>
+    <ion-progress-bar *ngIf="totalSubTasks" value="{{ progress }}"
+                      class="ion-margin-top"
+    ></ion-progress-bar>
+  </ion-card-content>
+</ion-card>

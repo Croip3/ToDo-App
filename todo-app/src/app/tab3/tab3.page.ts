@@ -6,7 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  date: string;
+  type: 'string';
 
-  constructor() {}
+  constructor() { }
 
+  onChange($event) {
+    console.log($event);
+  }
 }

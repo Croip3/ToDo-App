@@ -32,13 +32,26 @@
         </ion-col>
       </ion-row>
 
-      </ion-col>
+  <ion-grid *ngIf="(todoLists$ | async) as todoLists"
+            class="ion-margin-top"
+  >
+    <ion-row class="ion-justify-content-center">
+      <ion-col *ngFor="let todoList of todoLists"
+               size="11"
+               class="ion-margin-top"
+      >
+        <app-todo-list-card [todoList]="todoList">
+        </app-todo-list-card>
 
+      </ion-col>
     </ion-row>
-    
   </ion-grid>
 
-  <ion-fab (click)="presentModal()" vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab (click)="presentModal()"
+           vertical="bottom"
+           horizontal="center"
+           slot="fixed"
+  >
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
