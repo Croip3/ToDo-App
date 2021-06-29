@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>My Lists</ion-title>
-    <ion-title size="small">Overview Of Everything</ion-title>
+    <ion-title>Meine Todos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,6 +10,27 @@
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid *ngIf="canRender">
+    <ion-row >
+      <ion-col *ngFor="let item of mainList" size="12" class="ion-margin-top">
+        <app-todo-list-card
+          [title]="item.title"
+          [description]="item.description"
+          [date] = "item.date"
+          [startTime] = "item.start_time"
+          [endTime] = "item.end_time"
+          [location] = "item.location"
+
+        >
+      </app-todo-list-card>
+
+      <ion-row>
+        <ion-col *ngFor="let list of item.sub_tasks" size="11" class="ion-margin-top">
+          <app-todo-list-card [title]="list.task">
+          </app-todo-list-card>
+        </ion-col>
+      </ion-row>
 
   <ion-grid *ngIf="(todoLists$ | async) as todoLists"
             class="ion-margin-top"
@@ -22,6 +42,7 @@
       >
         <app-todo-list-card [todoList]="todoList">
         </app-todo-list-card>
+
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,35 +1,82 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-row>
-      <ion-title>{{title}}</ion-title>
-      <ion-button (click)='goBack()' > Fertig</ion-button>
-    </ion-row>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{title}}</ion-card-title>
+      <ion-card-subtitle>Todo bearbeiten:</ion-card-subtitle>
+    </ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Titel</ion-label>
+            <ion-input value={{title}}></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Beschreibung</ion-label>
+            <ion-input value={{description}}></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Start Zeit</ion-label>
+            <ion-datetime value={{startTime}} display-timezone="cet"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">End Zeitpunkt</ion-label>
+            <ion-datetime value={{endTime}} display-timezone="cet"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Ort</ion-label>
+            <ion-input value={{location}}></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-chip color="primary">
+            <ion-avatar>
+              <img src="https://ca.slack-edge.com/T01TA0Z7U5U-U01U6JVV5A4-5f1c293987d4-512">
+            </ion-avatar>
+            <ion-label>Konrad</ion-label>
+          </ion-chip>
 
-    <ion-item>
-      <ion-label position="floating">Titel</ion-label>
-      <ion-input value={{title}}></ion-input>
-    </ion-item>
-    <ion-item-divider></ion-item-divider>
+          <ion-chip color="dark">
+            <ion-avatar>
+              <img src="https://ca.slack-edge.com/T01TA0Z7U5U-U01TJMPBR7F-03b877933cf5-512">
+            </ion-avatar>
+            <ion-label>Shiobahn</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
 
-    <ion-item>
-      <ion-label position="floating">Farbe</ion-label>
-      <ion-input value={{color}}></ion-input>
-    </ion-item>
-    <ion-item-divider></ion-item-divider>
+          <ion-chip color="dark">
+            <ion-avatar>
+              <img src="https://ca.slack-edge.com/T01TA0Z7U5U-U01TP04PKHS-48067d8af7d6-512">
+            </ion-avatar>
+            <ion-label>Christopher</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
 
-    <ion-item>
-      <ion-label position="floating">Datum</ion-label>
-      <ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="cet"></ion-datetime>
-    </ion-item>
-    <ion-item-divider></ion-item-divider>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </ion-card>
 
-    <ion-item>
-      <ion-progress-bar value="{{ progress }}"></ion-progress-bar>
-    </ion-item>
+    <ion-button (click)='goBack()' size="large" expand="block" style="margin: 10px; position: fixed; left: 0; bottom: 0px; right: 0;">
+      <ion-icon slot="start" name="save"></ion-icon>
+      Speichern
+    </ion-button>
 
     
 

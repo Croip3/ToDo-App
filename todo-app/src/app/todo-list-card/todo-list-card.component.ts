@@ -12,9 +12,18 @@ export class TodoListCardComponent implements OnInit {
 
   @Input() public todoList: TodoListWithTodos;
 
+
+  @Input() public description: string;
+  @Input() public id: number;
+  @Input() public date: string;
+  @Input() public startTime: string;
+  @Input() public endTime: string;
+  @Input() public location: string;
+
   public description: string;
   public showProgress: boolean;
   public progress: number;
+
 
   constructor(
     private router: Router,
@@ -27,6 +36,21 @@ export class TodoListCardComponent implements OnInit {
 
   //navigation to detail page
   test(){
+
+    const navigationExtras = {
+      queryParams: {
+        title: this.title,
+        color: this.color,
+        date: this.date,
+        description: this.description,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        location: this.location,
+      }
+    };
+
+    this.router.navigate(['single-todo'], navigationExtras);
+
     // const navigationExtras = {
     //   queryParams: {
     //     title: this.title,
@@ -40,6 +64,7 @@ export class TodoListCardComponent implements OnInit {
 
   public navigateToTodoList(id: number): Promise<boolean> {
     return this.navController.navigateForward(['todo-list', id]);
+
   }
 
   private initProgress(): void {
