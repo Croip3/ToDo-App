@@ -1,4 +1,4 @@
- {
+{
   "allTodos": [
     {
       "id": 1111,
@@ -23,18 +23,12 @@
           "finished": false
         }
       ],
-      "user": [
-        "user1"
-      ],
-      "labels": [
-        "label 1",
-        "label 2",
-        "label 3"
-      ],
+      "user": ["user1"],
+      "labels": ["label 1", "label 2", "label 3"],
       "finished": true
     },
     {
-      "id": 1111,
+      "id": 2222,
       "title": "Todo2",
       "description": "beschreibung meiner Aufgabe",
       "date": "2021-12-01",
@@ -56,15 +50,9 @@
           "finished": false
         }
       ],
-      "user": [
-        "user1"
-      ],
-      "labels": [
-        "label 1",
-        "label 2",
-        "label 3"
-      ],
+      "user": ["user1"],
+      "labels": ["label 1", "label 2", "label 3"],
       "finished": false
     }
   ]
- }
+}
