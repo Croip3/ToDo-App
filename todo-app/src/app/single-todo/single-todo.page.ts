@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./single-todo.page.scss'],
 })
 export class SingleTodoPage implements OnInit {
-
   title: any;
   progress: any;
   color: any;
@@ -19,9 +18,13 @@ export class SingleTodoPage implements OnInit {
   endTime: any;
   location: any;
 
-  constructor(private navCtrl: NavController,private route: ActivatedRoute, private router: Router) {
-      this.route.queryParams.subscribe(params => {
-        if (params && params.title){
+  constructor(
+    private navCtrl: NavController,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      /*if (params && params.title){
           this.title = params.title;
         }
         if (params && params.progress){
@@ -44,16 +47,13 @@ export class SingleTodoPage implements OnInit {
         }
         if (params && params.location){
           this.location = params.location;
-        }
-
-      });
-    }
-
-  ngOnInit() {
+        }*/
+    });
   }
+
+  ngOnInit() {}
 
   goBack() {
     this.navCtrl.back();
   }
-
 }
