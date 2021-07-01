@@ -1,9 +1,7 @@
-<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>My Lists</ion-title>
-    <ion-title size="small">Overview Of Everything</ion-title>
+    <ion-title>My Day</ion-title>
+    <ion-title style = "font-size:16pt!important ;font-family:'regular';">Today's Date</ion-title>
   </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -12,7 +10,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid *ngIf="canRender">
+  <ion-grid *ngIf="canRender" style = "background:#ECF0F3">
     <ion-row >
       <ion-col *ngFor="let item of mainList" size="12" class="ion-margin-top">
         <app-todo-list-card

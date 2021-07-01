@@ -25,6 +25,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
+*{
+    font-family:"filson soft";
+}
+
 ion-title {
-  text-align: center;
+  text-align: left;
+  color: #193566;
+  font-family: "filson soft", "bold";
+  font-size: 30pt;
 }
