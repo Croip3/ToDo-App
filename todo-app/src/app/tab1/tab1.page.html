@@ -1,9 +1,7 @@
-<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>My Lists</ion-title>
-    <ion-title size="small">Overview Of Everything</ion-title>
+    <ion-title style = "font-size:16pt!important ;font-family:'regular';">Overview Of Everything</ion-title>
   </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -14,6 +12,7 @@
 
   <ion-grid *ngIf="(todoLists$ | async) as todoLists"
             class="ion-margin-top"
+            style = "background:#ECF0F3"
   >
     <ion-row class="ion-justify-content-center">
       <ion-col *ngFor="let todoList of todoLists"
