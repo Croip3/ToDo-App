@@ -12,3 +12,9 @@ ion-list.form-section {
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
 }
+
+ion-chip.selected-color {
+  border: 1px solid;
+
+  transition: border;
+}

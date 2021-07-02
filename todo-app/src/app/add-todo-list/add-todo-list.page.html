@@ -32,6 +32,7 @@
               <ion-chip *ngFor="let color of colors"
                         (click)="setTodoListColor(color)"
                         color="{{ color }}"
+                        [class.selected-color]="color === todoListForm.value.color"
               >
                 <ion-label class="ion-padding"></ion-label>
               </ion-chip>
