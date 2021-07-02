@@ -74,6 +74,8 @@ export class SingleTodoPage implements OnInit {
       this.id = parseInt(params['list_id']);
     });
     this.todo = await this.singletodoservice.getTodoDataById(this.id);
+
+    console.log(this.todo.users[1]);
   }
 
   goBack() {

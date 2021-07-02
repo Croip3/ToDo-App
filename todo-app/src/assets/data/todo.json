@@ -2,11 +2,11 @@
   "allTodos": [
     {
       "id": 1111,
-      "title": "Todo 1",
-      "description": "beschreibung meiner Aufgabe",
+      "title": "Todo-App",
+      "description": "Todo-App programmieren und vorstellen",
       "date": "2021-05-17",
       "start_time": "2021-05-17T15:00:00+01:00",
-      "end_time": "2021-05-18T13:00:00+01:00",
+      "end_time": "2021-07-02T13:00:00+01:00",
       "location": "Leipzig",
       "priority": false,
       "sub_tasks": [
@@ -23,8 +23,21 @@
           "finished": false
         }
       ],
-      "user": ["user1"],
-      "labels": ["label 1", "label 2", "label 3"],
+      "users": [
+        {
+          "name": "Konrad",
+          "picture": "https://ca.slack-edge.com/T01TA0Z7U5U-U01U6JVV5A4-5f1c293987d4-512"
+        },
+        {
+          "name": "Shiobhan",
+          "picture": "https://ca.slack-edge.com/T01TA0Z7U5U-U01TJMPBR7F-03b877933cf5-512"
+        },
+        {
+          "name": "Christopher",
+          "picture": "https://ca.slack-edge.com/T01TA0Z7U5U-U01TP04PKHS-48067d8af7d6-512"
+        }
+      ],
+      "labels": ["ToDo", "Todo App", "Entwicklung mobiler Anwendungen"],
       "finished": true
     },
     {
@@ -50,7 +63,7 @@
           "finished": false
         }
       ],
-      "user": ["user1"],
+      "users": ["Christopher"],
       "labels": ["label 1", "label 2", "label 3"],
       "finished": false
     }

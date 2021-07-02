@@ -1,7 +1,7 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{title}}</ion-card-title>
+      <ion-card-title>{{todo?.title}}</ion-card-title>
       <ion-card-subtitle>Todo bearbeiten:</ion-card-subtitle>
     </ion-card-header>
     <ion-grid>
@@ -51,6 +51,22 @@
       </ion-row>
       <ion-row>
         <ion-col>
+          <ion-chip
+            color="primary"
+            *ngFor="let user of (todo?.users); let i = index"
+            [attr.data-index]="i"
+          >
+            <ion-avatar>
+              <img
+                src="{{todo?.users[i].picture}}"
+                src="https://ca.slack-edge.com/T01TA0Z7U5U-U01U6JVV5A4-5f1c293987d4-512"
+              />
+            </ion-avatar>
+            <ion-label>{{todo?.users[i].name}}</ion-label>
+          </ion-chip>
+        </ion-col>
+
+        <!--<ion-col>
           <ion-chip color="primary">
             <ion-avatar>
               <img
@@ -60,7 +76,7 @@
             <ion-label>Konrad</ion-label>
           </ion-chip>
 
-          <ion-chip color="dark">
+          <ion-chip color="secondary">
             <ion-avatar>
               <img
                 src="https://ca.slack-edge.com/T01TA0Z7U5U-U01TJMPBR7F-03b877933cf5-512"
@@ -70,7 +86,7 @@
             <ion-icon name="close-circle"></ion-icon>
           </ion-chip>
 
-          <ion-chip color="dark">
+          <ion-chip color="secondary">
             <ion-avatar>
               <img
                 src="https://ca.slack-edge.com/T01TA0Z7U5U-U01TP04PKHS-48067d8af7d6-512"
@@ -78,6 +94,17 @@
             </ion-avatar>
             <ion-label>Christopher</ion-label>
             <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+        </ion-col>-->
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-chip
+            color="secondary"
+            *ngFor="let user of (todo?.users); let i = index"
+            [attr.data-index]="i"
+          >
+            <ion-label>#{{todo?.labels[i]}}</ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>
