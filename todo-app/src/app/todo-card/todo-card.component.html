@@ -1,5 +1,4 @@
-<ion-card (click)="navigateToTodo(todo.id)"
-          button="true"
+<ion-card button="true"
           mode="ios"
           class="ion-no-margin ion-margin-horizontal float:left"
 >
@@ -10,7 +9,7 @@
                     slot="end"></ion-checkbox>
     </ion-item>
   </ion-card-header>
-  <ion-card-content>
+  <ion-card-content (click)="navigateToTodo(todo.id)">
 
     <ion-list>
       <ion-item lines="none">
