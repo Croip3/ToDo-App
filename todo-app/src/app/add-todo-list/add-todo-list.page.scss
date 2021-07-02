@@ -1,3 +1,14 @@
+.form-section {
+  background: #fff;
+}
+
 ion-button {
   --transition: background-color 0.2s;
+}
+
+ion-list.form-section {
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
 }
