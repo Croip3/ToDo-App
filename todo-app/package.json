@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
     "@capacitor/core": "2.4.7",
+    "@capacitor/splash-screen": "^1.0.2",
     "@ionic/angular": "^5.5.2",
     "ion2-calendar": "^3.0.0-rc.0",
     "moment": "^2.29.1",
