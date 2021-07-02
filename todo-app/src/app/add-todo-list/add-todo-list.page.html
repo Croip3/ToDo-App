@@ -14,31 +14,36 @@
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col size="11">
-          <ion-list>
-
-            <ion-list-header mode="ios" lines="full">
+          <ion-list lines="none" class="ion-margin-vertical form-section">
+            <ion-list-header mode="ios" color="light">
               <ion-label>Title</ion-label>
             </ion-list-header>
-            <ion-item>
-              <ion-label position="floating">Select a title for your todo list</ion-label>
+            <ion-item color="light" lines="full">
+              <ion-label position="floating">Enter a title for your todo list</ion-label>
               <ion-input id="todo-list-title" formControlName="title"></ion-input>
             </ion-item>
+          </ion-list>
 
-            <ion-list-header mode="ios">
+          <ion-list lines="none" class="ion-margin-vertical form-section">
+            <ion-list-header mode="ios" color="light">
               <ion-label>Color</ion-label>
             </ion-list-header>
-            <ion-item lines="none">
-              <ion-chip *ngFor="let color of colors; let i = index"
+            <ion-item lines="none" color="light">
+              <ion-chip *ngFor="let color of colors"
                         (click)="setTodoListColor(color)"
-                        color="{{ color }}">
-                <ion-label color="{{ color }}">{{i + 1}}</ion-label>
+                        color="{{ color }}"
+                        [class.selected-color]="color === todoListForm.value.color"
+              >
+                <ion-label class="ion-padding"></ion-label>
               </ion-chip>
             </ion-item>
+          </ion-list>
 
-            <ion-list-header mode="ios">
+          <ion-list lines="none" class="ion-margin-vertical form-section">
+            <ion-list-header mode="ios" color="light">
               <ion-label>Todos</ion-label>
             </ion-list-header>
-            <ion-item>
+            <ion-item lines="none" color="light">
               <ion-label>Select todos for your list</ion-label>
               <ion-select multiple="true" cancelText="Cancel" okText="Select" formControlName="todos">
                 <ion-select-option *ngFor="let todo of (todos$ | async)"
@@ -48,14 +53,15 @@
                 </ion-select-option>
               </ion-select>
             </ion-item>
-
           </ion-list>
+
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
 
   <ion-button (click)="addTodoList(todoListForm)"
+              [disabled]="todoListForm.invalid"
               color="{{ todoListForm.value.color }}"
               size="large"
               expand="block"
