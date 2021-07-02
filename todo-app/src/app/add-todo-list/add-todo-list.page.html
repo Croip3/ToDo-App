@@ -1,8 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Add New List</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar class="ion-padding-vertical">
+    <ion-title>New List</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Close</ion-button>
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -53,9 +55,12 @@
     </ion-grid>
   </form>
 
-  <ion-button
-    (click)="addTodoList(todoListForm)"
-    size="large" expand="block" style="margin: 10px; position: fixed; left: 0; bottom: 0px; right: 0;">
+  <ion-button (click)="addTodoList(todoListForm)"
+              color="{{ todoListForm.value.color }}"
+              size="large"
+              expand="block"
+              style="margin: 10px; position: fixed; left: 0; bottom: 0px; right: 0;"
+  >
     <ion-icon slot="start" name="add-outline"></ion-icon>
     Todo List
   </ion-button>

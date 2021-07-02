@@ -13,10 +13,10 @@
 
     <ion-list>
       <ion-item lines="none">
-        <ion-note>{{ todo.location }}</ion-note>
+        <ion-text>{{ todo.location }}</ion-text>
       </ion-item>
       <ion-item lines="none">
-        <ion-note>{{ todo.end_time | date }}</ion-note>
+        <ion-text>{{ todo.end_time | date }}</ion-text>
       </ion-item>
     </ion-list>
     <ion-progress-bar *ngIf="totalSubTasks" value="{{ progress }}"
