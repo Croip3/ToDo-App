@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController} from "@ionic/angular";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TodoListColor, TodoListColors} from "../interface/Color";
 import {COLORS} from "../constants/colors.constants";
 import {Observable} from "rxjs";
@@ -59,19 +59,26 @@ export class AddTodoListPage implements OnInit {
 
   private getFormGroup(): FormGroup {
     return this.formBuilder.group({
-      title: [''],
-      color: [''],
+      title: ['', Validators.required],
+      color: ['',Validators.required],
       todos: ['']
     });
   }
 
   private getTodoListFromForm(todoLists: TodoList[], todoListForm: FormGroup): TodoList {
+
+    const id: number = Math.max(...todoLists.map(todoList => todoList.id)) + 1;
+    const title: string = todoListForm.value.title;
+    const color: TodoListColor = todoListForm.value.color;
+    const main: boolean = false;
+    const todo_ids: number[] = todoListForm.value.todos?.length ? todoListForm.value.todos.map(id => parseInt(id)) : [];
+
     return {
-      id: Math.max(...todoLists.map(todoList => todoList.id)) + 1,
-      title: todoListForm.value.title,
-      color: todoListForm.value.color,
-      main: false,
-      todo_ids: todoListForm.value.todos.map(id => parseInt(id))
+      id,
+      title,
+      color,
+      main,
+      todo_ids
     } as TodoList;
   }
 

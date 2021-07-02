@@ -60,6 +60,7 @@
   </form>
 
   <ion-button (click)="addTodoList(todoListForm)"
+              [disabled]="todoListForm.invalid"
               color="{{ todoListForm.value.color }}"
               size="large"
               expand="block"
