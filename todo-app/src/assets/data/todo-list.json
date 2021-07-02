@@ -9,8 +9,9 @@
     {
       "id": 2,
       "title": "Work",
-      "todo_ids": [1, 2, 3],
-      "main": true
+      "todo_ids": [1111, 2, 3],
+      "main": true,
+      "color": "tertiary"
     },
     {
       "id": 3,

@@ -1,3 +1,5 @@
+import {TodoListColor} from "./Color";
+
 export interface TodosJson {
   allTodos: Todo[];
 }
@@ -33,6 +35,7 @@ export interface TodoList {
   title: string;
   todo_ids: number[];
   main: boolean;
+  color?: TodoListColor
 }
 
 export interface TodoListWithTodos extends Omit<TodoList, 'todo_ids'> {
