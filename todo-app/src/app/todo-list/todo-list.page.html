@@ -1,9 +1,11 @@
 <ng-container *ngIf="(todoList$ | async) as todoList">
-  <ion-header>
-    <ion-toolbar>
+  <ion-header class="ion-no-border">
+    <ion-toolbar color="{{ todoList.color }}">
       <ion-buttons slot="start">
         <ion-back-button [text]="buttonLabel"></ion-back-button>
       </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="{{ todoList.color }}">
       <ion-title>{{ todoList.title }}</ion-title>
     </ion-toolbar>
   </ion-header>

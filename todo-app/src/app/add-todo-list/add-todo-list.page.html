@@ -1,8 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Add New List</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar class="ion-padding-vertical">
+    <ion-title>New List</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Close</ion-button>
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
